@@ -8,17 +8,45 @@
 <body>
   <script>
 
-var hammingWeight = function(n) {
-    const str = parseInt(n).toString(2);
-    let number = 0;
-    for(let i = 0 ; i < str.length ; i++) {
-        if(str[i] === '1') {
-            number = number + 1;
-        }
+  var getKthFromEnd = function(head, k) {
+    // let size = 0;
+    // let i = 0
+    // let current = head;
+    // while(current !== null) {
+    //     current = current.next;
+    //     size++
+    // }
+    // current = head
+    // while(i !== size - k && current !== null) {
+    //     current = current.next;
+    //     i++
+    // }
+    // if(current === null) return null;
+    // return current;
+
+    let low = head;
+    let fast = head;
+    let i = 0;
+
+    for(let i = 0; i < k ; i++) {
+      fast = fast.next;
     }
-    return number
-};
-console.log(hammingWeight(01011))
+
+    while(fast !== null) {
+      if(i >= k) {
+        low = low.next;
+      }
+      fast = fast.next;
+    }
+
+    return low
+
+  };
+
+  console.log(exchange([2,3,1,4]))
+
+  
   </script>
 </body>
 </html>
+
