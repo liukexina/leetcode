@@ -8,62 +8,18 @@
 <body>
   <script>
 
-var MinStack = function() {
-    this.number = [];
-    this.min = [];
-};
-
-/** 
- * @param {number} x
- * @return {void}
- */
-MinStack.prototype.push = function(x) {
-    this.number.push(x)
-    // if(this.min[0] >= x || this.min.length === 0) {
-    //     this.min.unshift(x)
-    // }
-    if(this.min.length <= 0) {
-        this.min.unshift(x)
-    } else {
-      console.log(Math.min(this.min[0], x))
-        this.min.unshift(Math.min(this.min[0], x))
-    }
-};
-
-/**
- * @return {void}
- */
-MinStack.prototype.pop = function() {
-    const x = this.number.pop()
-    // if(this.min[0] === x) {
-        this.min.shift();
-    // }
-};
-
-/**
- * @return {number}
- */
-MinStack.prototype.top = function() {
-    return this.number[this.number.length - 1]
-};
-
-/**
- * @return {number}
- */
-MinStack.prototype.mins = function() {
-  console.log(this.min)
-    return this.min[0]
-};
-
-  var minStack = new MinStack()
-  minStack.push(-2)
-  minStack.push(0)
-  minStack.push(-3)
-  console.log(minStack.mins());   
-  minStack.pop();      
-  console.log(minStack.top())
-  console.log(minStack.mins());
-
+  var levelOrder = function(root) {
+    let i = 1;
+    let arr = [];
+    while(root.length > 0) {
+      
+      arr.push(root.splice(0,i).filter(item => item !== null));
+      i = i * 2;
+    } 
+    return arr;
+    console.log(arr);
+  };
+  console.log(levelOrder([3,9,20,null,null,15,7]))
   
   </script>
 </body>
