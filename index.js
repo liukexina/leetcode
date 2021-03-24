@@ -1,14 +1,14 @@
-var maxSubArray = function (nums) {
-	const arr = [nums[0]];
-	let max = nums[0];
-	for (let i = 1; i < nums.length; i++) {
-		if (arr[i - 1] <= 0) {
-			arr[i] = nums[i] + 0;
-		} else {
-			arr[i] = arr[i - 1] + nums[i];
+var firstUniqChar = function (s) {
+	let arr = [];
+	for (let i = 0; i < s.length; i++) {
+		const str = s.substring(i + 1);
+		if (arr.indexOf(s[i]) === -1) {
+			if (str === '' || !str.includes(s[i])) {
+				return s[i];
+			} else {
+				arr.push(s[i]);
+			}
 		}
-		max = Math.max(arr[i], max);
 	}
-	console.log(arr);
-	return max;
+	return ' ';
 };
