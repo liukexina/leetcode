@@ -1,10 +1,19 @@
-var firstUniqChar = function (s) {
-	let map = new Map();
-	for (const c of s) {
-		map.set(c, map.has(c) ? false : true);
+var search = function (nums, target) {
+	let i = 0;
+	let j = nums.length - 1;
+	while (i <= j) {
+		let m = Math.ceil((i + j) / 2);
+		if (nums[m] <= target) i = m + 1;
+		else j = m - 1;
 	}
-	for (const item of map.keys()) {
-		if (map.get(item)) return item;
+	let right = i;
+	i = 0;
+	j = nums.length - 1;
+	while (i <= j) {
+		let m = Math.ceil((i + j) / 2);
+		if (nums[m] < target) i = m + 1;
+		else j = m - 1;
 	}
-	return ' ';
+	let left = j;
+	return right - left - 1;
 };
