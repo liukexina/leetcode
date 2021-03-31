@@ -7,26 +7,25 @@
   </head>
   <body>
     <script>
-      var search = function (nums, target) {
-        let i = 0;
-        let j = nums.length - 1;
-        while(i <= j) {
-          let m = Math.ceil((i+j)/2);
-          if(nums[m] <= target) i = m + 1;
-          else j = m - 1;
+      var twoSum = function (nums, target) {
+        let i = 0
+        let j = nums.length - 1
+        if (nums[0] > target) return []
+        while (i < j) {
+          console.log(nums[i], nums[j])
+          if (nums[i] > target) i++
+          if (nums[j] > target) j--
+          console.log(nums[i], nums[j])
+          if (nums[i] + nums[j] > target) {
+            j--
+          } else if (nums[i] + nums[j] < target) {
+            i++
+          } else {
+            return [nums[i], nums[j]]
+          }
         }
-        let right = i;
-        i = 0;
-        j = nums.length - 1;
-        while(i <= j) {
-          let m = Math.ceil((i+j)/2);
-          if(nums[m] < target) i = m + 1;
-          else j = m - 1;
-        }
-        let left = j
-        return right - left - 1
       }
-      console.log(search([5,7,7,8,8,10],8))
+      console.log(twoSum([10,26,30,31,47,60], 40))
     </script>
   </body>
 </html>
