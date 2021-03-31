@@ -7,25 +7,44 @@
   </head>
   <body>
     <script>
-      var twoSum = function (nums, target) {
-        let i = 0
-        let j = nums.length - 1
-        if (nums[0] > target) return []
-        while (i < j) {
-          console.log(nums[i], nums[j])
-          if (nums[i] > target) i++
-          if (nums[j] > target) j--
-          console.log(nums[i], nums[j])
-          if (nums[i] + nums[j] > target) {
-            j--
-          } else if (nums[i] + nums[j] < target) {
+      var findContinuousSequence = function (target) {
+        // const arr = [];
+        // for (let i = 1; i < target; i++) {
+        //   let sum = i;
+        //   for (let j = i + 1; j < target; j++) {
+        //     sum = sum + j;
+        //     if(sum === target) {
+        //       arr.push(Array.from({length:j-i+1},(item, index)=> i+index))
+        //       break;
+        //     } else if (sum > target) {
+        //       break;
+        //     }
+        //   } 
+        // }
+        // return arr;
+        let i = 1; 
+        let j = 1;
+        const arr = []
+        let sum = 0;
+        while (i <= target / 2) {
+          if(sum < target) {
+            sum = sum + j
+            j++;
+          } else if(sum > target) {
+            sum = sum - i
             i++
           } else {
-            return [nums[i], nums[j]]
+            console.log(sum)
+            const a = Array.from({length:j-i},(item, index)=> i+index)
+            console.log(a)
+            arr.push(a)
+            sum = sum - i
+            i++
           }
         }
+        return arr;
       }
-      console.log(twoSum([10,26,30,31,47,60], 40))
+      console.log(findContinuousSequence(9))
     </script>
   </body>
 </html>
