@@ -7,44 +7,15 @@
   </head>
   <body>
     <script>
-      var findContinuousSequence = function (target) {
-        // const arr = [];
-        // for (let i = 1; i < target; i++) {
-        //   let sum = i;
-        //   for (let j = i + 1; j < target; j++) {
-        //     sum = sum + j;
-        //     if(sum === target) {
-        //       arr.push(Array.from({length:j-i+1},(item, index)=> i+index))
-        //       break;
-        //     } else if (sum > target) {
-        //       break;
-        //     }
-        //   } 
-        // }
-        // return arr;
-        let i = 1; 
-        let j = 1;
-        const arr = []
-        let sum = 0;
-        while (i <= target / 2) {
-          if(sum < target) {
-            sum = sum + j
-            j++;
-          } else if(sum > target) {
-            sum = sum - i
-            i++
-          } else {
-            console.log(sum)
-            const a = Array.from({length:j-i},(item, index)=> i+index)
-            console.log(a)
-            arr.push(a)
-            sum = sum - i
-            i++
-          }
-        }
-        return arr;
-      }
-      console.log(findContinuousSequence(9))
+      var reverseWords = function(s) {
+        s = s.trim();
+        let arr = s.split(' ');
+        arr.reverse();
+        arr = arr.join(' ')
+        console.log(arr)
+        return arr.replace(/\s+/g," ")
+      };
+      console.log(reverseWords('the sky is blue'))  // "example good a"
     </script>
   </body>
 </html>
