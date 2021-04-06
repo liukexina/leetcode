@@ -1,22 +1,20 @@
-var isStraight = function (nums) {
-	// const repeat = [];
-	// let max = 0, min = 14;
-	// for (let num of nums) {
-	//     if (num == 0) continue;
-	//     max = Math.max(max, num);
-	//     min = Math.min(min, num);
-	//     if (repeat.indexOf(num) !== -1) return false; // 若有重复，提前返回 false
-	//     repeat.push(num);
+var lastRemaining = function (n, m) {
+	// let arr = [];
+	// let i;
+	// for (i = 0; i < n; i++) {
+	//     arr.push(i)
 	// }
-	// return max - min < 5;
+	// i = 0;
+	// while (arr.length !== 1) {
+	//     i = (i + m - 1) % arr.length;
+	//     arr.splice(i, 1)
+	// }
+	// return arr[0]
 
-	let joker = 0;
-	nums.sort(function (a, b) {
-		return a - b;
-	});
-	for (let i = 0; i < 4; i++) {
-		if (nums[i] == 0) joker++;
-		else if (nums[i] == nums[i + 1]) return false;
+	let ans = 0;
+	// 最后一轮剩下2个人，所以从2开始反推
+	for (let i = 2; i <= n; i++) {
+		ans = (ans + m) % i;
 	}
-	return nums[4] - nums[joker] < 5; // 最大牌 - 最小牌 < 5 则可构成顺子
+	return ans;
 };

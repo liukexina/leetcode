@@ -7,15 +7,21 @@
   </head>
   <body>
     <script>
-      var reverseWords = function(s) {
-        s = s.trim();
-        let arr = s.split(' ');
-        arr.reverse();
-        arr = arr.join(' ')
-        console.log(arr)
-        return arr.replace(/\s+/g," ")
+      var lastRemaining = function(n, m) {
+        let arr = [];
+        let i;
+        for( i = 0 ; i < n ; i++) {
+          arr.push(i)
+        }
+        i = 0;
+        while(arr.length !== 1) {
+          i = (i + m - 1) % arr.length;
+          arr.splice(i,1)
+        }
+
+        return arr[0]
       };
-      console.log(reverseWords('the sky is blue'))  // "example good a"
+      console.log(lastRemaining(88, 10))
     </script>
   </body>
 </html>
