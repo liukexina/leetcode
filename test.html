@@ -7,21 +7,37 @@
   </head>
   <body>
     <script>
-      var lastRemaining = function(n, m) {
-        let arr = [];
-        let i;
-        for( i = 0 ; i < n ; i++) {
-          arr.push(i)
+      var checkValidString = function (s) {
+        const arr1 = []
+        const arr2 = []
+        for(let i = 0 ; i < s.length ; i++) {
+          if(s[i] === '(') arr1.push(i)
+          if(s[i] === '*') arr2.push(i)
+          if(s[i] === ')') {
+            if(arr1.length === 0) {
+              if(arr2.length === 0) return false;
+              arr2.pop();
+            } else {
+              arr1.pop();
+            }
+          }
         }
-        i = 0;
-        while(arr.length !== 1) {
-          i = (i + m - 1) % arr.length;
-          arr.splice(i,1)
+        if(arr1.length > arr2.length) {
+          return false;
         }
+        while(arr2.length !== 0 && arr1.length !== 0) {
+          if(arr1[arr1.length-1] > arr2[arr2.length - 1]) return false;
+          arr1.pop()
+          arr2.pop()
+        }
+        return true;
+      }
 
-        return arr[0]
-      };
-      console.log(lastRemaining(88, 10))
+      console.log(
+        checkValidString(
+          '((((()(()()()*()(((((*)()*(**(())))))(())()())(((())())())))))))(((((())*)))()))(()((*()*(*)))(*)()',
+        ),
+      )
     </script>
   </body>
 </html>
