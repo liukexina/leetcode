@@ -7,27 +7,71 @@
   </head>
   <body>
     <script>
-      const list = [];
-      function SumOfkNumber(sum, n, list){
-          const list1 = JSON.parse(JSON.stringify(list))
-          const list2 = JSON.parse(JSON.stringify(list))
-          // 递归出口
-          if (n <= 0 || sum <= 0)
-              return;
-          if (sum == n){
-            // 反转list
-            list.reverse();
-            console.log((list.join(' ') + ' '+ n))
-            list.reverse()//此处还需反转回来
-          }
+      const obj = {
+        1: 'a',
+        2: 'b',
+        3: 'c',
+        4: 'd',
+        5: 'e',
+        6: 'f',
+        7: 'g',
+        8: 'h',
+        9: 'i',
+        10: 'j',
+        11: 'k',
+        12: 'l',
+        13: 'm',
+        14: 'n',
+        15: 'o',
+        16: 'p',
+        17: 'q',
+        18: 'r',
+        19: 's',
+        20: 't',
+        21: 'u',
+        22: 'v',
+        23: 'w',
+        24: 'x',
+        25: 'y',
+        26: 'z',
+      }
+      var getSmallestString = function (n, k) {
+        // const arr = new Array(n)
+        // let ans = arr.fill('a')
+        // while (n > 0) {
+        //   if (k - 26 >= n - 1) {
+        //     ans[n - 1] = obj[26]
+        //     k -= 26
+        //   } else if (k > n) {
+        //     ans[n - 1] = obj[1 + k - n];
+        //     k -= k - n + 1
+        //   } else {
+        //     break
+        //   }
+        //   n--
+        // }
+        // return ans.join('')
 
-          list1.unshift(n); //典型的01背包问题
-          SumOfkNumber(sum - n, n - 1, list1);   //“放”n，前n-1个数“填满”sum-n
-          // list2.pop();
-          SumOfkNumber(sum, n - 1, list2);     //不“放”n，n-1个数“填满”sum
+        // k - n 每一位都是a的时候还差多少;i是下一个要进行填充的位
+        let res = Array(n).fill('a'),
+          remain = k - n,
+          i = n - 1
+        while (remain) {
+          if (remain > 25) {
+            // 当前位无法填充完
+            remain -= 25
+            res[i] = 'z'
+            i--
+          } else {
+            // 当前位可以填充完剩余的值
+            res[i] = String.fromCharCode(97 + remain)
+            remain = 0
+          }
+        }
+        return res.join('')
       }
 
-      SumOfkNumber(8,10,list);
+      console.log(getSmallestString(5, 73))
     </script>
   </body>
 </html>
