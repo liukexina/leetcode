@@ -7,37 +7,27 @@
   </head>
   <body>
     <script>
-      var checkValidString = function (s) {
-        const arr1 = []
-        const arr2 = []
-        for(let i = 0 ; i < s.length ; i++) {
-          if(s[i] === '(') arr1.push(i)
-          if(s[i] === '*') arr2.push(i)
-          if(s[i] === ')') {
-            if(arr1.length === 0) {
-              if(arr2.length === 0) return false;
-              arr2.pop();
-            } else {
-              arr1.pop();
-            }
+      const list = [];
+      function SumOfkNumber(sum, n, list){
+          const list1 = JSON.parse(JSON.stringify(list))
+          const list2 = JSON.parse(JSON.stringify(list))
+          // 递归出口
+          if (n <= 0 || sum <= 0)
+              return;
+          if (sum == n){
+            // 反转list
+            list.reverse();
+            console.log((list.join(' ') + ' '+ n))
+            list.reverse()//此处还需反转回来
           }
-        }
-        if(arr1.length > arr2.length) {
-          return false;
-        }
-        while(arr2.length !== 0 && arr1.length !== 0) {
-          if(arr1[arr1.length-1] > arr2[arr2.length - 1]) return false;
-          arr1.pop()
-          arr2.pop()
-        }
-        return true;
+
+          list1.unshift(n); //典型的01背包问题
+          SumOfkNumber(sum - n, n - 1, list1);   //“放”n，前n-1个数“填满”sum-n
+          // list2.pop();
+          SumOfkNumber(sum, n - 1, list2);     //不“放”n，n-1个数“填满”sum
       }
 
-      console.log(
-        checkValidString(
-          '((((()(()()()*()(((((*)()*(**(())))))(())()())(((())())())))))))(((((())*)))()))(()((*()*(*)))(*)()',
-        ),
-      )
+      SumOfkNumber(8,10,list);
     </script>
   </body>
 </html>
