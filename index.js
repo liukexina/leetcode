@@ -1,35 +1,30 @@
-var getSmallestString = function (n, k) {
-	// const arr = new Array(n)
-	// let ans = arr.fill('a')
-	// while (n > 0) {
-	//   if (k - 26 >= n - 1) {
-	//     ans[n - 1] = obj[26]
-	//     k -= 26
-	//   } else if (k > n) {
-	//     ans[n - 1] = obj[1 + k - n];
-	//     k -= k - n + 1
-	//   } else {
-	//     break
-	//   }
-	//   n--
-	// }
-	// return ans.join('')
+var isValidSudoku = function (board) {
+	rows = [];
+	colums = [];
+	boxes = [];
 
-	// k - n 每一位都是a的时候还差多少;i是下一个要进行填充的位
-	let res = Array(n).fill('a'),
-		remain = k - n,
-		i = n - 1;
-	while (remain) {
-		if (remain > 25) {
-			// 当前位无法填充完
-			remain -= 25;
-			res[i] = 'z';
-			i--;
-		} else {
-			// 当前位可以填充完剩余的值
-			res[i] = String.fromCharCode(97 + remain);
-			remain = 0;
+	for (let i = 0; i < 9; i++) {
+		rows[i] = [];
+		colums[i] = [];
+		boxes[i] = [];
+	}
+
+	for (let i = 0; i < 9; i++) {
+		for (let j = 0; j < 9; j++) {
+			const num = board[i][j];
+			if (num != '.') {
+				let n = Number(num);
+				let box_index = Math.floor(i / 3) * 3 + Math.floor(j / 3);
+
+				if (rows[i].indexOf(n) !== -1 || colums[j].indexOf(n) !== -1 || boxes[box_index].indexOf(n) !== -1) {
+					return false;
+				} else {
+					rows[i].push(n);
+					colums[j].push(n);
+					boxes[box_index].push(n);
+				}
+			}
 		}
 	}
-	return res.join('');
+	return true;
 };
