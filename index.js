@@ -1,30 +1,19 @@
-var isValidSudoku = function (board) {
-	rows = [];
-	colums = [];
-	boxes = [];
+var Trie = function () {
+	this.trie = [];
+};
 
-	for (let i = 0; i < 9; i++) {
-		rows[i] = [];
-		colums[i] = [];
-		boxes[i] = [];
+Trie.prototype.insert = function (word) {
+	this.trie.push(word);
+};
+
+Trie.prototype.search = function (word) {
+	return this.trie.indexOf(word) !== -1;
+};
+
+Trie.prototype.startsWith = function (prefix) {
+	if (this.trie.length === 0) return false;
+	for (const iterator of this.trie) {
+		if (iterator.startsWith(prefix)) return true;
 	}
-
-	for (let i = 0; i < 9; i++) {
-		for (let j = 0; j < 9; j++) {
-			const num = board[i][j];
-			if (num != '.') {
-				let n = Number(num);
-				let box_index = Math.floor(i / 3) * 3 + Math.floor(j / 3);
-
-				if (rows[i].indexOf(n) !== -1 || colums[j].indexOf(n) !== -1 || boxes[box_index].indexOf(n) !== -1) {
-					return false;
-				} else {
-					rows[i].push(n);
-					colums[j].push(n);
-					boxes[box_index].push(n);
-				}
-			}
-		}
-	}
-	return true;
+	return false;
 };

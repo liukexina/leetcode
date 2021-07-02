@@ -8,34 +8,62 @@
   <body>
     <script>
       /**
-       * @param {number} x
-       * @return {number}
+       * Initialize your data structure here.
        */
-      var mySqrt = function (x) {
-        // let num;
-        // for(let i = 0 ; i <= Math.ceil(x/2); i++) {
-        //   if(i*i < x) {
-        //     num = i
-        //   } else if(i * i === x) {
-        //     return i
-        //   } else {
-        //     return num;
-        //   }
-        // }
-        // return num;
-        let l = 0, r = x, ans = -1;
-        while (l <= r) {
-            let mid = Math.ceil(l + (r - l) / 2);
-            if (mid * mid <= x) {
-                ans = mid;
-                l = mid + 1;
-            } else {
-                r = mid - 1;
-            }
-        }
-        return ans;
+      var Trie = function () {
+        this.trie = []
       }
-      console.log(mySqrt(8))
+
+      /**
+       * Inserts a word into the trie.
+       * @param {string} word
+       * @return {void}
+       */
+      Trie.prototype.insert = function (word) {
+        this.trie.push(word)
+      }
+
+      /**
+       * Returns if the word is in the trie.
+       * @param {string} word
+       * @return {boolean}
+       */
+      Trie.prototype.search = function (word) {
+        return this.trie.indexOf(word) !== -1
+      }
+      
+      /**
+       * Returns if there is any word in the trie that starts with the given prefix.
+       * @param {string} prefix
+       * @return {boolean}
+       */
+      Trie.prototype.startsWith = function (prefix) {
+        if(this.trie.length === 0) return false;
+        for (const iterator of this.trie) {
+          if(iterator.startsWith(prefix)) return true;
+        }
+        return false;
+      }
+
+      /**
+       * Your Trie object will be instantiated and called as such:
+       * var obj = new Trie()
+       * obj.insert(word)
+       * var param_2 = obj.search(word)
+       * var param_3 = obj.startsWith(prefix)
+       */
+
+      const trie = new Trie()
+      trie.insert('apple')
+      console.log(trie.search('apple'))
+       // 返回 True
+      console.log(trie.search('app'))
+       // 返回 False
+      console.log(trie.startsWith('app'))
+       // 返回 True
+      trie.insert('app')
+      console.log(trie.search('app'))
+       // 返回 True
     </script>
   </body>
 </html>
