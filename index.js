@@ -1,19 +1,30 @@
-var Trie = function () {
-	this.trie = [];
-};
+var shortestToChar = function (s, c) {
+	// const sArr = s.split('')
+	// const result = []
+	// const indexArr = [...sArr.entries()]
+	//   .filter(([, x]) => x === c)
+	//   .map(([idx]) => idx)
+	// for (const [index, iterator] of sArr.entries()) {
+	//   const l = indexArr
+	//     .map((item) => Math.abs(index - item))
+	//     .sort((a, b) => a - b)
+	//   result.push(l[0])
+	// }
+	// return result
+	let N = s.length;
+	let ans = new Array(N);
+	let prev = -10400;
 
-Trie.prototype.insert = function (word) {
-	this.trie.push(word);
-};
-
-Trie.prototype.search = function (word) {
-	return this.trie.indexOf(word) !== -1;
-};
-
-Trie.prototype.startsWith = function (prefix) {
-	if (this.trie.length === 0) return false;
-	for (const iterator of this.trie) {
-		if (iterator.startsWith(prefix)) return true;
+	for (let i = 0; i < N; ++i) {
+		if (s[i] == c) prev = i;
+		ans[i] = i - prev;
 	}
-	return false;
+
+	prev = 10400;
+	for (let i = N - 1; i >= 0; --i) {
+		if (s[i] == c) prev = i;
+		ans[i] = Math.min(ans[i], prev - i);
+	}
+
+	return ans;
 };

@@ -7,63 +7,37 @@
   </head>
   <body>
     <script>
-      /**
-       * Initialize your data structure here.
-       */
-      var Trie = function () {
-        this.trie = []
-      }
+      var shortestToChar = function (s, c) {
+        // const sArr = s.split('')
+        // const result = []
+        // const indexArr = [...sArr.entries()]
+        //   .filter(([, x]) => x === c)
+        //   .map(([idx]) => idx)
+        // for (const [index, iterator] of sArr.entries()) {
+        //   const l = indexArr
+        //     .map((item) => Math.abs(index - item))
+        //     .sort((a, b) => a - b)
+        //   result.push(l[0])
+        // }
+        // return result
+        let N = s.length
+        let ans = new Array(N)
+        let prev = -10400
 
-      /**
-       * Inserts a word into the trie.
-       * @param {string} word
-       * @return {void}
-       */
-      Trie.prototype.insert = function (word) {
-        this.trie.push(word)
-      }
-
-      /**
-       * Returns if the word is in the trie.
-       * @param {string} word
-       * @return {boolean}
-       */
-      Trie.prototype.search = function (word) {
-        return this.trie.indexOf(word) !== -1
-      }
-      
-      /**
-       * Returns if there is any word in the trie that starts with the given prefix.
-       * @param {string} prefix
-       * @return {boolean}
-       */
-      Trie.prototype.startsWith = function (prefix) {
-        if(this.trie.length === 0) return false;
-        for (const iterator of this.trie) {
-          if(iterator.startsWith(prefix)) return true;
+        for (let i = 0; i < N; ++i) {
+          if (s[i] == c) prev = i
+          ans[i] = i - prev
         }
-        return false;
+
+        prev = 10400
+        for (let i = N - 1; i >= 0; --i) {
+          if (s[i] == c) prev = i
+          ans[i] = Math.min(ans[i], prev - i)
+        }
+
+        return ans
       }
-
-      /**
-       * Your Trie object will be instantiated and called as such:
-       * var obj = new Trie()
-       * obj.insert(word)
-       * var param_2 = obj.search(word)
-       * var param_3 = obj.startsWith(prefix)
-       */
-
-      const trie = new Trie()
-      trie.insert('apple')
-      console.log(trie.search('apple'))
-       // 返回 True
-      console.log(trie.search('app'))
-       // 返回 False
-      console.log(trie.startsWith('app'))
-       // 返回 True
-      trie.insert('app')
-      console.log(trie.search('app'))
-       // 返回 True
+      console.log(shortestToChar('xuzmnimdwf', 'n'))
     </script>
   </body>
 </html>
