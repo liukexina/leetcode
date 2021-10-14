@@ -1,41 +1,27 @@
-function movingCount(m, n, k) {
-	if (k == 0)  return 1;
-	let vis = []
-	for(let i = 0 ; i < m ; i++) {
-		vis[i] = [];
-		for(let j = 0 ; j < n ; j++) {
-			vis[i][j] = false; 
-		}
+TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+	if (!preorder.size()) {
+			return nullptr;
 	}
-	let ans = 1;
-	vis[0][0] = true;
-	for (let i = 0; i < m; ++i) {
-			for (let j = 0; j < n; ++j) {
-					if ((i == 0 && j == 0) || getTotal(i,j) > k) {
-							continue;
+	TreeNode* root = new TreeNode(preorder[0]);
+	stack<TreeNode*> stk;
+	stk.push(root);
+	int inorderIndex = 0;
+	for (int i = 1; i < preorder.size(); ++i) {
+			int preorderVal = preorder[i];
+			TreeNode* node = stk.top();
+			if (node->val != inorder[inorderIndex]) {
+					node->left = new TreeNode(preorderVal);
+					stk.push(node->left);
+			}
+			else {
+					while (!stk.empty() && stk.top()->val == inorder[inorderIndex]) {
+							node = stk.top();
+							stk.pop();
+							++inorderIndex;
 					}
-					// 边界判断
-					if (i - 1 >= 0) {
-							vis[i][j] |= vis[i - 1][j];
-					}
-					if (j - 1 >= 0) {
-							vis[i][j] |= vis[i][j - 1];
-					}
-					ans += vis[i][j] ? 1 : 0;
+					node->right = new TreeNode(preorderVal);
+					stk.push(node->right);
 			}
 	}
-	return ans;
-}
-
-function getTotal(i,j,k) {
-		i = i + '';
-		j = j + '';
-		let total = 0;
-		for (const iterator of i) {
-			total += parseInt(iterator)
-		}
-		for (const iterator of j) {
-			total += parseInt(iterator)
-		}
-		return total;
+	return root;
 }
