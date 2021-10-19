@@ -8,15 +8,21 @@
   <body>
     <script>
 
-    function add(a, b) {
-        while(b != 0) { // 当进位为 0 时跳出
-            let c = (a & b) << 1;  // c = 进位
-            a ^= b; // a = 非进位和
-            b = c; // b = 进位
+let maxnum=1;
+    function dfs(start,temp,n){
+        if(n==1||n==0){
+            maxnum=Math.max(maxnum,temp);
         }
-        return a;
+        //cout<<start<<" "<<temp<<" "<<n<<endl;
+        for(let i=0;i<n-1;i++){
+            dfs(start+i,temp*(start+i),n-start-i);
+        }
     }
-      console.log(add(3, -8))
+    function cuttingRope(n) {
+        dfs(1,1,n);
+        return maxnum;
+    }
+      console.log(cuttingRope(3))
     </script>
   </body>
 </html>
