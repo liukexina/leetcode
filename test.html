@@ -8,48 +8,51 @@
   <body>
     <script>
 
-      var findRepeatNumber = function(nums) {
-        let length = nums.length;
-        let i = 0;
 
-        while(i < nums.length) {
-            if(nums[i] == i) {
-                i++;
-                continue;
+      var search = function (nums, target) {
+        function getRight(target) {
+          let i = 0;
+          let j = nums.length - 1;
+          // 右
+          while(i <= j) {
+            let r = Math.floor((i+j)/2);
+            if(nums[r] <= target) {
+              i = r + 1;
+            } else {
+              j = r - 1;
             }
-            if(nums[nums[i]] == nums[i])
-                return nums[i];
-
-            let tmp = nums[i];
-            nums[i] = nums[tmp];
-            nums[tmp] = tmp;
-
-            // swap(nums[i],nums[nums[i]]);
+          }
+          return i;
         }
-        return -1;
-
-        // while(i < length) {
-        //   if(num[i] === i) {
-        //     i++;
-        //     continue;
-        //   }
-        //   if(num[i] === num[num[i]]) {
-        //     return num[i];
+        return getRight(target) - getRight(target-1)
+        // let i = 0;
+        // let j = nums.length - 1;
+        // // 右
+        // while(i <= j) {
+        //   let r = Math.floor((i+j)/2);
+        //   if(nums[r] <= target) {
+        //     i = r + 1;
         //   } else {
-        //     let a = num[i];
-        //     num[i] = num[num[i]];
-        //     num[num[i]] = a;
-        //     // swap(num[i], num[num[i]])
+        //     j = r - 1;
         //   }
         // }
-        // return -1;
+        // let right = i;
+        // i = 0;
+        // j = nums.length - 1;
+        // // 左
+        // while(i <= j) {
+        //   let r = Math.floor((i+j)/2);
+        //   if(nums[r] < target) {
+        //     i = r + 1;
+        //   } else {
+        //     j = r - 1;
+        //   }
+        // }
+        // let left = j;
+        // console.log(left, right)
+        // return right - left - 1  ;
       };
-
-      // function swap(a,b) {
-      //   [a,b] = [b,a]
-      // };
-
-      console.log(findRepeatNumber([2,3,1,0,2]))
+      console.log(search([1,2,3,6,6,7,7],7))
     </script>
   </body>
 </html>
