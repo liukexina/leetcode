@@ -7,29 +7,18 @@
   </head>
   <body>
     <script>
-     var isSymmetric = function(root) {
-      if(root === null) return true;
-      return c(root.left, root.right)
-    };
+      var maxProfit = function(prices) {
+        if(prices.length === 0) return 0;
+        const dp = [0];
+        let min = prices[0];
+        for(let i = 1 ; i < prices.length; i++) {
+          min = Math.min(min,prices[i-1])
+          dp[i] = Math.max(dp[i-1], prices[i] - min)
+        }
+        return dp[prices.length-1]
+      };
+      console.log(maxProfit([7,1,5,3,6,4]))
 
-    function c(l, r) {
-      if(l === r) return true;
-      if(l === null || r === null || l.val !== r.val) return false;
-      return c(l.left, r.right) && c(l.right,r.left)
-    }
-
-    var isSymmetric = function(root) {
-    if(root === null) return true;
-    return c(root.left, root.right)
-};
-
-var c = function(l,r) {
-    if(l === null && r === null) return true;
-    if(l === null || r === null || l.val !== r.val) {
-        return false;
-    }
-    return c(l.left, r.right) && c(l.right, r.left)
-}
     </script>
   </body>
 </html>

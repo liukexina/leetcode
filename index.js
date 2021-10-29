@@ -1,11 +1,10 @@
-var isSubStructure = function(A,B) {
-  if(A === null || B === null) return false;
-  return recur(A,B) || isSubStructure(A.left,B) || isSubStructure(A.right,B)
+var maxProfit = function (prices) {
+  if (prices.length === 0) return 0;
+  const dp = [0];
+  let min = prices[0];
+  for (let i = 1; i < prices.length; i++) {
+    min = Math.min(min, prices[i - 1]);
+    dp[i] = Math.max(dp[i - 1], prices[i] - min);
+  }
+  return dp[prices.length - 1];
 };
-
-function recur(A,B) {
-  if(B === null) return true;
-  if(A === null) return false;
-  if(A.val !== B.val) return false;
-  return recur(A.left, B.left) && recur(A.right, B.right)
-}
