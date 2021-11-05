@@ -1,12 +1,15 @@
-var lengthOfLongestSubstring = function(s) {
-  let dic = new Map();
-  let i = -1, res = 0;
-  for(let j = 0; j < s.length; j++) {
-      if(dic.get(s[j]) !== undefined) {
-        i = Math.max(i, dic.get(s[j])); // 更新左指针 i
-      }
-      dic.set(s[j], j); // 哈希表记录
-      res = Math.max(res, j - i); // 更新结果
+var twoSum = function (nums, target) {
+  let i = 0;
+  let j = nums.length - 1;
+  while(i < j) {
+    let cha = target - nums[i];
+    if(nums[j] > cha) {
+      j--
+    } else if(nums[j] < cha) {
+      i++;
+    } else {
+      break;
+    }
   }
-  return res;
+  return [nums[i],nums[j]]
 }
