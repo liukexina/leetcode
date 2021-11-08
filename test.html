@@ -7,11 +7,23 @@
   </head>
   <body>
     <script>
-      var reverseWords = function (s) {
+
+      var kthLargest = function (root, k) {
+        if(root === null) return root;
+        let pre;
+        dfs(root);
+        return pre;
         
+        function dfs(cur) {
+          if(cur === null) return;
+          dfs(cur.right)
+          if(k === 0) return;
+          if(--k === 0) pre = cur.val
+          dfs(cur.left)
+        }
       }
 
-      console.log(twoSum([10,26,30,31,47,60],40))
+      console.log(exist([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]],"ABCCED"))
 
     </script>
   </body>
