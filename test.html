@@ -8,20 +8,50 @@
   <body>
     <script>
 
-      var isStraight = function (nums) {
-        nums.sort((a,b) => a-b)
+      
+      function sortN(arr, num) {
+        low = 0;
+            high = arr.length - 1;
 
-        let joker = 0;
-        for(let i = 0 ; i < nums.length ; i++) {
-          if (nums[i] == 0) joker++;
-          else if (nums[i] === nums[i+1]) return false;
+            while(low <= high) {
+                m = Math.floor((low + high) / 2);
+                if(arr[m] > num) high = m - 1;
+                else low = m + 1;
+            }
+
+            if(low === 0) {
+              arr.unshift(num)
+            } else {
+              arr.splice(low, 0 ,num)
+            }
+            console.log(arr)
+
+            console.log(low, high)
+      }
+
+      function InsertSort(a, n)  {
+          let i,j,k;
+          for(i = 1; i < n; i++) {
+            low = 0;
+            high = arr.length - 1;
+
+            while(low <= high) {
+                m = (low + high) / 2;
+                if(a[m] > num) high = m - 1;
+                else low = m + 1;
+            }
+
+            console.log(low, height)
+
+            // if(j != i - 1) {
+            //     let temp = a[i];
+            //     for(k = i - 1; k >= high + 1; k--)
+            //         a[k + 1] = a[k];
+            //     a[k + 1] = temp;
+            // }
         }
-
-        return nums[4] - nums[joker] < 5
-      };
-
-     
-      console.log(isStraight([0,0,1,5,2]))
+      }
+      console.log(sortN([1],2))
 
     </script>
   </body>
