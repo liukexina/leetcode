@@ -7,52 +7,28 @@
   </head>
   <body>
     <script>
+      var verifyPostorder = function(postorder) {
+        if(postorder.length === 0) return true;
+        return dfs(0, postorder.length-1);
+
+        function dfs(start ,end) {
+          let i;
+          let j;
+          if(start >= end) return true;
+         
+            i = start;
+            while(postorder[i] <= postorder[end] ) i++;
+            j = i;
+            while(postorder[j] >= postorder[end] ) j++;
+            return j === end && dfs(start, i-1) & dfs(i,end-1)
+          
+        }
+
+      };
+       
 
       
-      function sortN(arr, num) {
-        low = 0;
-            high = arr.length - 1;
-
-            while(low <= high) {
-                m = Math.floor((low + high) / 2);
-                if(arr[m] > num) high = m - 1;
-                else low = m + 1;
-            }
-
-            if(low === 0) {
-              arr.unshift(num)
-            } else {
-              arr.splice(low, 0 ,num)
-            }
-            console.log(arr)
-
-            console.log(low, high)
-      }
-
-      function InsertSort(a, n)  {
-          let i,j,k;
-          for(i = 1; i < n; i++) {
-            low = 0;
-            high = arr.length - 1;
-
-            while(low <= high) {
-                m = (low + high) / 2;
-                if(a[m] > num) high = m - 1;
-                else low = m + 1;
-            }
-
-            console.log(low, height)
-
-            // if(j != i - 1) {
-            //     let temp = a[i];
-            //     for(k = i - 1; k >= high + 1; k--)
-            //         a[k + 1] = a[k];
-            //     a[k + 1] = temp;
-            // }
-        }
-      }
-      console.log(sortN([1],2))
-
+      console.log(myPow(2,-2147483648))
     </script>
   </body>
 </html>

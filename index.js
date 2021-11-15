@@ -1,49 +1,18 @@
-/**
- * initialize your data structure here.
- */
-var MedianFinder = function () {
-  this.arr = [];
-};
+var verifyPostorder = function(postorder) {
+  if(postorder.length === 0) return true;
+  return dfs(0, postorder.length-1);
 
-/**
- * @param {number} num
- * @return {void}
- */
-MedianFinder.prototype.addNum = function (num) {
-  sortN(this.arr, num);
-  function sortN(arr, num) {
-    low = 0;
-    high = arr.length - 1;
-
-    while (low <= high) {
-      m = Math.floor((low + high) / 2);
-      if (arr[m] > num) high = m - 1;
-      else low = m + 1;
-    }
-
-    if (low === 0) {
-      arr.unshift(num);
-    } else {
-      arr.splice(low, 0, num);
-    }
+  function dfs(start ,end) {
+    let i;
+    let j;
+    if(start >= end) return true;
+   
+      i = start;
+      while(postorder[i] <= postorder[end] ) i++;
+      j = i;
+      while(postorder[j] >= postorder[end] ) j++;
+      return j === end && dfs(start, i-1) & dfs(i,end-1)
+    
   }
-};
 
-/**
- * @return {number}
- */
-MedianFinder.prototype.findMedian = function () {
-  let middle = (this.arr.length - 1) / 2;
-  if (Number.isInteger(middle)) {
-    return this.arr[middle];
-  } else {
-    return (this.arr[Math.ceil(middle)] + this.arr[Math.floor(middle)]) / 2;
-  }
 };
-
-/**
- * Your MedianFinder object will be instantiated and called as such:
- * var obj = new MedianFinder()
- * obj.addNum(num)
- * var param_2 = obj.findMedian()
- */
