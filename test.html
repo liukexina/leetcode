@@ -7,28 +7,55 @@
   </head>
   <body>
     <script>
-      var verifyPostorder = function(postorder) {
-        if(postorder.length === 0) return true;
-        return dfs(0, postorder.length-1);
+      // var singleNumbers = function(nums) {
+      //   let value = 0;
+      //   const arr = [0,0];
+      //   for(let i = 0 ; i < 32 ; i++) {
+      //     let sum = 0
+      //     for (const num of nums) {
+      //       if(num >>> i & 1) sum++
+      //     }
+      //     if(sum % 3) value += (1<<i)
+      //   }
+      //   return value;
+      // };
 
-        function dfs(start ,end) {
-          let i;
-          let j;
-          if(start >= end) return true;
-         
-            i = start;
-            while(postorder[i] <= postorder[end] ) i++;
-            j = i;
-            while(postorder[j] >= postorder[end] ) j++;
-            return j === end && dfs(start, i-1) & dfs(i,end-1)
-          
+      // var singleNumbers = function(nums) {
+      //   let value = 0;
+      //   for(let i = 0 ; i < nums.length ; i++) {
+      //     value ^= nums[i]
+      //   }
+      //   return value;
+      // };
+
+      var singleNumbers = function(nums) {
+        let value = 0;
+        for(let i = 0 ; i < nums.length ; i++) {
+          value ^= nums[i]
         }
-
+        const arr = [0,0];
+        let index = getFirst1(value);
+        for(let i = 0 ; i < nums.length ;i++) {
+         if((nums[i] >>> index) & 1 === 1) {
+           arr[1] ^= nums[i]
+         } else {
+           arr[0] ^= nums[i] 
+         }
+        }
+        return arr
       };
-       
 
-      
-      console.log(myPow(2,-2147483648))
+      function getFirst1(num) {
+        let index = 0;
+        while(num !== 0) {
+          if(num & 1) break;
+          index++;
+          num >>>= 1;
+        }
+        return index;
+      }
+       
+      console.log(singleNumbers([4,1,4,6]))
     </script>
   </body>
 </html>
