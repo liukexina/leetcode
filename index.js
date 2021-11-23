@@ -1,8 +1,12 @@
-function cuttingRope( n) {
-  if(n <= 3) return n - 1;
-  let a = Math.floor(n / 3);
-  let b = n % 3;
-  if(b == 0) return Math.pow(3, a);
-  if(b == 1) return Math.pow(3, a - 1) * 4;
-  return Math.pow(3, a) * 2;
-}
+var validateStackSequences = function(pushed, popped) {
+  const arr = [];
+  let i = 0;
+  for (const iterator of pushed) {
+    arr.push(iterator);
+    while(arr.length && arr[arr.length-1] === popped[i]) {
+      arr.pop();
+      i++;
+    }
+  }
+  return !arr.length
+};
