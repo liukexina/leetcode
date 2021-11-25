@@ -7,32 +7,31 @@
   </head>
   <body>
     <script>
-      function isNumber(s) {
-        let states = [
-            { ' ': 0, 's': 1, 'd': 2, '.': 4 }, 
-            { 'd': 2, '.': 4 } ,                
-            { 'd': 2, '.': 3, 'e': 5, ' ': 8 }, 
-            { 'd': 3, 'e': 5, ' ': 8 },         
-            { 'd': 3 },                        
-            { 's': 6, 'd': 7 },                 
-            { 'd': 7 },                         
-            { 'd': 7, ' ': 8 },                 
-            { ' ': 8 }                          
-        ]
-        let p = 0;
-        let t;
-        for(let c of s.split('')) {
-            if(c >= '0' && c <= '9') t = 'd';
-            else if(c == '+' || c == '-') t = 's';
-            else if(c == 'e' || c == 'E') t = 'e';
-            else if(c == '.' || c == ' ') t = c;
-            else t = '?';
-            if(!states[p].hasOwnProperty(t)) return false;
-            p = states[p][t];
+      var MaxQueue = function() {
+        this.arr = [];
+        this.max = [];
+      };
+
+      MaxQueue.prototype.max_value = function() {
+        return this.max.length ? this.max[0] : -1;
+      };
+
+      MaxQueue.prototype.push_back = function(value) {
+        this.arr.push(value);
+        while(this.max.length && this.max[this.max.length-1] < value) {
+          this.max.pop()
         }
-        return p == 2 || p == 3 || p == 7 || p == 8;
-    }
-      console.log(isNumber('+-5'))
+        this.max.push(value)
+      };
+
+      MaxQueue.prototype.pop_front = function() {
+        if(!this.arr.length) return -1;
+        const value = this.arr.shift();
+        if(value === this.max[0]) this.max.shift();
+        return value;
+      };
+
+      console.log(maxSlidingWindow([5,3,4], 1))
     </script>
   </body>
 </html>
