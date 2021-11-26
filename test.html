@@ -7,31 +7,54 @@
   </head>
   <body>
     <script>
-      var MaxQueue = function() {
-        this.arr = [];
-        this.max = [];
-      };
+      // var permutation = function(s) {
+      //   let result = [];
+      //   for (const iterator of s.split('')) {
+      //     let cur = [];
+      //     if(result.length === 0) {
+      //       result.push(iterator);
+      //       continue;
+      //     }
+      //     for (const item of result) {
+      //       for(let i = 0 ; i <= item.length ; i++) {
+      //         let value = item.split('');
+      //         value.splice(i,0,iterator);
+      //         if(Array.from(new Set(value)).length === value.length) cur.push(value.join(''))
+      //       }
+      //     }
+      //     result = Array.from(new Set(cur));
+      //   }
+      //   return result
+      // };
 
-      MaxQueue.prototype.max_value = function() {
-        return this.max.length ? this.max[0] : -1;
-      };
-
-      MaxQueue.prototype.push_back = function(value) {
-        this.arr.push(value);
-        while(this.max.length && this.max[this.max.length-1] < value) {
-          this.max.pop()
-        }
-        this.max.push(value)
-      };
-
-      MaxQueue.prototype.pop_front = function() {
-        if(!this.arr.length) return -1;
-        const value = this.arr.shift();
-        if(value === this.max[0]) this.max.shift();
-        return value;
-      };
-
-      console.log(maxSlidingWindow([5,3,4], 1))
+      let res = []
+      let c = []
+      function permutation(s) {
+        c = s.split('')
+        dfs(0);
+        return res;
+      }
+      function dfs(x) {
+          if(x == c.length - 1) {
+              res.push(c.join(''));      // 添加排列方案
+              return;
+          }
+          let set = new Set();
+          for(let i = x; i < c.length; i++) {
+            console.log(set.has(c[i]))
+              if(set.has(c[i])) continue; // 重复，因此剪枝
+              set.add(c[i]);
+              swap(i, x);                      // 交换，将 c[i] 固定在第 x 位
+              dfs(x + 1);                      // 开启固定第 x + 1 位字符
+              swap(i, x);                      // 恢复交换
+          }
+      }
+      function swap(a, b) {
+          let tmp = c[a];
+          c[a] = c[b];
+          c[b] = tmp;
+      }
+      console.log(permutation('abc'))
     </script>
   </body>
 </html>

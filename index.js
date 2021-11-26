@@ -1,23 +1,19 @@
-var MaxQueue = function() {
-  this.arr = [];
-  this.max = [];
-};
-
-MaxQueue.prototype.max_value = function() {
-  return this.max.length ? this.max[0] : -1;
-};
-
-MaxQueue.prototype.push_back = function(value) {
-  this.arr.push(value);
-  while(this.max.length && this.max[this.max.length-1] < value) {
-    this.max.pop()
-  }
-  this.max.push(value)
-};
-
-MaxQueue.prototype.pop_front = function() {
-  if(!this.arr.length) return -1;
-  const value = this.arr.shift();
-  if(value === this.max[0]) this.max.shift();
-  return value;
-};
+var permutation = function(s) {
+        let result = [];
+        for (const iterator of s.split('')) {
+          let cur = [];
+          if(result.length === 0) {
+            result.push(iterator);
+            continue;
+          }
+          for (const item of result) {
+            for(let i = 0 ; i <= item.length ; i++) {
+              let value = item.split('');
+              value.splice(i,0,iterator);
+              if(Array.from(new Set(value)).length === value.length) cur.push(value.join(''))
+            }
+          }
+          result = Array.from(new Set(cur));
+        }
+        return result
+      };
