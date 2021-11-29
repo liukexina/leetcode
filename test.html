@@ -7,54 +7,20 @@
   </head>
   <body>
     <script>
-      // var permutation = function(s) {
-      //   let result = [];
-      //   for (const iterator of s.split('')) {
-      //     let cur = [];
-      //     if(result.length === 0) {
-      //       result.push(iterator);
-      //       continue;
-      //     }
-      //     for (const item of result) {
-      //       for(let i = 0 ; i <= item.length ; i++) {
-      //         let value = item.split('');
-      //         value.splice(i,0,iterator);
-      //         if(Array.from(new Set(value)).length === value.length) cur.push(value.join(''))
-      //       }
-      //     }
-      //     result = Array.from(new Set(cur));
-      //   }
-      //   return result
-      // };
-
-      let res = []
-      let c = []
-      function permutation(s) {
-        c = s.split('')
-        dfs(0);
-        return res;
+       function dicesProbability(n) {
+        let dp = new Array(6).fill(1/6);
+        for (let i = 2; i <= n; i++) {
+            let tmp = new Array(5 * i + 1).fill(0);
+            for (let j = 0; j < dp.length; j++) {
+              for (let k = 0; k < 6; k++) {
+                tmp[j + k] += dp[j] / 6.0;
+              }
+            }
+            dp = tmp;
+        }
+        return dp;
       }
-      function dfs(x) {
-          if(x == c.length - 1) {
-              res.push(c.join(''));      // 添加排列方案
-              return;
-          }
-          let set = new Set();
-          for(let i = x; i < c.length; i++) {
-            console.log(set.has(c[i]))
-              if(set.has(c[i])) continue; // 重复，因此剪枝
-              set.add(c[i]);
-              swap(i, x);                      // 交换，将 c[i] 固定在第 x 位
-              dfs(x + 1);                      // 开启固定第 x + 1 位字符
-              swap(i, x);                      // 恢复交换
-          }
-      }
-      function swap(a, b) {
-          let tmp = c[a];
-          c[a] = c[b];
-          c[b] = tmp;
-      }
-      console.log(permutation('abc'))
+      console.log(dicesProbability(2))
     </script>
   </body>
 </html>
