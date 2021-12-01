@@ -1,25 +1,21 @@
-function reversePairs(nums) {
-  let tmp = new Array(nums.length);
-  return mergeSort(0, nums.length - 1);
-
-  function mergeSort(l, r) {
-    // 终止条件
-    if (l >= r) return 0;
-    // 递归划分
-    let m = Math.floor((l + r) / 2);
-    let res = mergeSort(l, m) + mergeSort(m + 1, r);
-    // 合并阶段
-    let i = l,
-      j = m + 1;
-    for (let k = l; k <= r; k++) tmp[k] = nums[k];
-    for (let k = l; k <= r; k++) {
-      if (i == m + 1) nums[k] = tmp[j++];
-      else if (j == r + 1 || tmp[i] <= tmp[j]) nums[k] = tmp[i++];
-      else {
-        nums[k] = tmp[j++];
-        res += m - i + 1; // 统计逆序对
-      }
+function countDigitOne(n) {
+  let digit = 1;
+  res = 0;
+  let high = parseInt(n / 10);
+  let low = 0;
+  cur = n % 10;
+  while (high !== 0 || cur != 0) {
+    if (cur === 0) {
+      res = res + high * digit;
+    } else if (cur === 1) {
+      res = res + high * digit + low + 1;
+    } else {
+      res = res + high * digit + digit;
     }
-    return res;
+    low = low + cur * digit;
+    cur = high % 10;
+    high = parseInt(high / 10);
+    digit = digit * 10;
   }
+  return res;
 }
