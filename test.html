@@ -8,78 +8,33 @@
 <body>
 </body>
 <script>
-  // var longestPalindrome = function(s) {
-  //   let result = '';
-  //   for(let i = 0 ; i < s.length; i++) {
-  //     for(let j = i+1 ; j <= s.length ; j++) {
-  //       let str = s.substring(i,j)
-  //       if(str === str.split('').reverse().join('') && str.length > result.length) {
-  //         result = str;
-  //       }
-  //     }
-  //   }
-  //   return result
-  // }; 
-
-  var longestPalindrome = function(s) {
-    const dp = [];
-    let maxlength = 1;
-    let begin = 0;
-    for(let i = 0 ; i < s.length ; i++) {
-      dp[i] = new Array(s.length).fill(false)
-      dp[i][i] = true;
-    }
-    for(let l = 2; l <= s.length ; l++) {
-      for(let i = 0 ; i < s.length ; i++) {
-        let j = i + l - 1;
-        if(j > s.length) continue;
-
-        if(s[i] !== s[j]) {
-          dp[i][j] = false
+  var threeSum = function(nums) {
+    nums.sort((a,b) => a-b);
+    let arr = []
+    for(let k = 0 ; k < nums.length - 2 ; k++) {
+      if(nums[k] > 0) break;
+      if(k > 0 && nums[k-1] === nums[k]) continue;
+      let i = k + 1;
+      let j = nums.length - 1;
+      let target = 0 - nums[k];
+      while(i < j) {
+        sum = nums[i] + nums[j] + nums[k]
+        if(sum === 0) {
+          arr.push([nums[k], nums[i], nums[j]])
+          while(i < j && nums[i] == nums[i+1]) i++
+          while(i < j && nums[j] == nums[j-1]) j--
+          i++;
+          j--
+        } else if(sum < 0) {
+          i++
         } else {
-          if(j - i < 3) {
-            dp[i][j] = true;
-          } else {
-            dp[i][j] = dp[i+1][j-1]
-          }
-        }
-
-        if(dp[i][j] && l > maxlength) {
-          maxlength = l;
-          begin = i;
+          j--
         }
       }
     }
-    return s.substr(begin, maxlength)
-  }; 
   
-  var longestPalindrome = function(s) {
-    function expandAroundCenter(s, left, right) {
-      while(left >= 0 && right < s.length && s[left] === s[right]) {
-        left--;
-        right++;
-      }
-      return [left+1, right-1];
-    }
-
-    let start = 0;
-    let end = 0;
-
-    for(let i = 0 ; i < s.length ; i++) {
-      const [left1, right1] = expandAroundCenter(s, i, i);
-      const [left2, right2] = expandAroundCenter(s, i, i+1);
-      if(right1-left1 > end - start) {
-        end = right1;
-        start = left1
-      }
-      if(right2-left2 > end - start) {
-        end = right2;
-        start = left2
-      }
-    }
-
-    return s.substr(start, end - start + 1)
-  }; 
-  console.log(longestPalindrome('abacba'))
+    return arr
+  };  
+  console.log(threeSum([-1,0,1,2,-1,-4]))
 </script>
 </html>
