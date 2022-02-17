@@ -1,27 +1,17 @@
-var search = function (nums, target) {
-  let n = nums.length;
-  if (n == 0) return -1;
-  if (n == 1) return nums[0] == target ? 0 : -1;
-  let l = 0;
-  let r = n - 1;
-  while (l <= r) {
-    let mid = Math.floor((l + r) / 2);
-    if (nums[mid] == target) {
-      return mid;
+var permute = function (nums) {
+  const result = [];
+  function dfs(curArr, arr) {
+    if (curArr.length === 0) {
+      result.push(arr);
+      return;
     }
-    if (nums[0] <= nums[mid]) {
-      if (nums[0] <= target && target < nums[mid]) {
-        r = mid - 1;
-      } else {
-        l = mid + 1;
-      }
-    } else {
-      if (nums[mid] < target && target <= nums[n - 1]) {
-        l = mid + 1;
-      } else {
-        r = mid - 1;
-      }
+    for (let i = 0; i < curArr.length; i++) {
+      const item = [...curArr];
+      item.splice(i, 1);
+      dfs(item, [...arr, curArr[i]]);
     }
   }
-  return -1;
+
+  dfs(nums, []);
+  return result;
 };
