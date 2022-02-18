@@ -7,60 +7,29 @@
   </head>
   <body></body>
   <script>
-    var rotate = function (matrix) {
-      // if (matrix.length == 0 || matrix.length != matrix[0].length) {
-      //   return
-      // }
-      // let nums = matrix.length
-      // let times = 0
-      // while (times <= Math.floor(nums / 2)) {
-      //   let len = nums - (times * 2)
-      //   console.log(len)
-      //   for (let i = 0; i < len - 1; ++i) {
-      //     console.log([times, times+1],[times + len - i - 1, times], [times + len - 1,times + len - i - 1],[times + i,times + len - 1])
-      //     let temp = matrix[times][times + i]
-      //     matrix[times][times + i] = matrix[times + len - i - 1][times]
-      //     matrix[times + len - i - 1][times] = matrix[times + len - 1][times + len - i - 1]
-      //     matrix[times + len - 1][times + len - i - 1] = matrix[times + i][times + len - 1]
-      //     matrix[times + i][times + len - 1] = temp
-      //     console.log(JSON.parse(JSON.stringify(matrix)))
-      //   }
-      //   ++times
-      // }
-
-      if (matrix.length == 0 || matrix.length != matrix[0].length) {
-        return
-      }
-      let nums = matrix.length
-      for (let i = 0; i < nums; ++i) {
-        for (let j = 0; j < nums - i; ++j) {
-          let temp = matrix[i][j]
-          matrix[i][j] = matrix[nums - 1 - j][nums - 1 - i]
-          matrix[nums - 1 - j][nums - 1 - i] = temp
-        }
-      }
-      for (let i = 0; i < nums / 2; ++i) {
-        for (let j = 0; j < nums; ++j) {
-          let temp = matrix[i][j]
-          matrix[i][j] = matrix[nums - 1 - i][j]
-          matrix[nums - 1 - i][j] = temp
+    var groupAnagrams = function(strs) {
+      let map = new Map()
+      for (const iterator of strs) {
+        let item = iterator.split('')
+        item.sort()
+        if(map.has(item.join(''))) {
+          let info = map.get(item.join(''))
+          info.push(iterator)
+        } else {
+          map.set(item.join(''), [iterator])
         }
       }
 
-      return matrix
-    }
+      return Array.from(map.values())
 
-    let arr2 = [
-      [1, 2, 3],
-      [4, 5, 6],
-      [7, 8, 9],
-    ]
-    let matrix = [
-      [1, 2, 3, 4],
-      [5, 6, 7, 8],
-      [9, 10, 11, 12],
-      [13, 14, 15, 16],
-    ]
-    console.log(rotate(matrix))
+      // let arr = []
+      // for (const [key,value] of map) {
+      //   arr.push(value)
+      // }
+      // return Object.values(map)
+    };
+
+    
+    console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
   </script>
 </html>
