@@ -1,17 +1,13 @@
-var permute = function (nums) {
-  const result = [];
-  function dfs(curArr, arr) {
-    if (curArr.length === 0) {
-      result.push(arr);
-      return;
-    }
-    for (let i = 0; i < curArr.length; i++) {
-      const item = [...curArr];
-      item.splice(i, 1);
-      dfs(item, [...arr, curArr[i]]);
+var canJump = function (nums) {
+  let n = nums.length;
+  let rightmost = 0;
+  for (let i = 0; i < n; ++i) {
+    if (i <= rightmost) {
+      rightmost = Math.max(rightmost, i + nums[i]);
+      if (rightmost >= n - 1) {
+        return true;
+      }
     }
   }
-
-  dfs(nums, []);
-  return result;
+  return false;
 };
