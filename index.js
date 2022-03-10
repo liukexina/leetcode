@@ -1,18 +1,26 @@
-var merge = function (intervals) {
-  if (intervals.length === 1) return intervals;
-  intervals.sort((a, b) => {
-    return a[0] - b[0];
-  });
-  let ans = [];
-  for (let i = 0; i < intervals.length; ) {
-    let t = intervals[i][1];
-    let j = i + 1;
-    while (j < intervals.length && intervals[j][0] <= t) {
-      t = Math.max(t, intervals[j][1]);
-      j++;
+var sortColors = function (nums) {
+  let l = 0;
+  let r = nums.length - 1;
+  let index = 0;
+
+  while (index <= r) {
+    if (nums[index] === 0) {
+      bian(l, index);
+      l++;
+      index++;
+    } else if (nums[index] === 2) {
+      bian(r, index);
+      r--;
+    } else {
+      index++;
     }
-    ans.push([intervals[i][0], t]);
-    i = j;
   }
-  return ans;
+
+  function bian(i, j) {
+    let temp = nums[i];
+    nums[i] = nums[j];
+    nums[j] = temp;
+  }
+
+  return nums;
 };

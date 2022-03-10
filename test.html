@@ -8,32 +8,34 @@
   <body>
   </body>
   <script>
-    var uniquePaths = function(m, n) {
-      let result = 0;
-      let arr = []
-      arr[0] = new Array(n).fill(1)
-      for(let i = 1 ; i < m ; i++) {
-        arr[i] = [];
-        arr[i][0] = 1;
-      }
-
-      for(let i = 1 ; i < m ; i++) {
-        for(let j = 1 ; j < n ; j++) {
-          arr[i][j] = arr[i-1][j] + arr[i][j-1]
+    var sortColors = function(nums) {
+      let l = 0;
+      let r = nums.length - 1;
+      let index = 0;
+      
+      while(index <= r) {
+        if(nums[index] === 0) {
+          bian(l,index)
+          l++;
+          index++
+        } else if(nums[index] === 2) {
+          bian(r,index)
+          r--;
+        } else {
+          index++;
         }
       }
 
-      return arr[m-1][n-1]
-      function dfs(x,y) {
-        if(x === m-1 && y === n-1) result = result + 1;
-        if(x < m-1) dfs(x+1,y)
-        if(y < n-1) dfs(x,y+1)
+      function bian(i,j) {
+        let temp = nums[i]
+        nums[i] = nums[j]
+        nums[j] = temp;
       }
-      // dfs(0,0)
-      // return result
+     
+      return nums
     };
    
     // const arr = [[1,3],[2,6],[8,10],[15,18]]
-    console.log(uniquePaths(19,13))
+    console.log(sortColors([2,0,1]))
   </script>
 </html>
