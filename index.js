@@ -1,26 +1,19 @@
-var sortColors = function (nums) {
-  let l = 0;
-  let r = nums.length - 1;
-  let index = 0;
+var longestConsecutive = function (nums) {
+  if (nums.length === 0) return 0;
+  let set = new Set(nums);
 
-  while (index <= r) {
-    if (nums[index] === 0) {
-      bian(l, index);
-      l++;
-      index++;
-    } else if (nums[index] === 2) {
-      bian(r, index);
-      r--;
-    } else {
-      index++;
+  let maxLength = 1;
+  for (const iterator of set) {
+    if (set.has(iterator - 1)) continue;
+    let currentNum = iterator;
+    let currentLength = 1;
+
+    while (set.has(currentNum + 1)) {
+      currentNum += 1;
+      currentLength += 1;
     }
-  }
 
-  function bian(i, j) {
-    let temp = nums[i];
-    nums[i] = nums[j];
-    nums[j] = temp;
+    maxLength = Math.max(maxLength, currentLength);
   }
-
-  return nums;
+  return maxLength;
 };
