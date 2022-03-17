@@ -1,19 +1,23 @@
-var longestConsecutive = function (nums) {
-  if (nums.length === 0) return 0;
-  let set = new Set(nums);
+var MinStack = function () {
+  this.arr = [];
+};
 
-  let maxLength = 1;
-  for (const iterator of set) {
-    if (set.has(iterator - 1)) continue;
-    let currentNum = iterator;
-    let currentLength = 1;
-
-    while (set.has(currentNum + 1)) {
-      currentNum += 1;
-      currentLength += 1;
-    }
-
-    maxLength = Math.max(maxLength, currentLength);
+MinStack.prototype.push = function (val) {
+  if (this.arr.length === 0) {
+    this.arr.push([val, val]);
+  } else {
+    this.arr.push([val, Math.min(val, this.arr[this.arr.length - 1][1])]);
   }
-  return maxLength;
+};
+
+MinStack.prototype.pop = function () {
+  this.arr.pop();
+};
+
+MinStack.prototype.top = function () {
+  return this.arr[this.arr.length - 1][0];
+};
+
+MinStack.prototype.getMin = function () {
+  return this.arr[this.arr.length - 1][1];
 };
