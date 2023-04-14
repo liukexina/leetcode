@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  </head>
-  <body>
-  </body>
-  <script>
 
-    const curry = (fn,...args1) => {
-      return (...args2) => {
-        const arg = [...args1, ...args2]
-        // if(arg.length < fn.length) {
-        if(args2.length !== 0) {
-          return curry.call(this, fn, ...arg)
-        } else {
-          return fn.apply(this, arg);
-        }
-      }
-    }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+</head>
 
-    const bind = (context, ...args1) => {
-      const self = this;
+<body></body>
+<script>
 
-      var found = (...args2) => {
-        const arg = [...args1,...args2]
-        return self.apply(this instanceof found ? this : context, ...arg)
-      }
+  function p1() {
+    return new Promise((resolve,reject) => {
+      console.log('red')
+      setTimeout(() => {
+        resolve();
+      }, 2000);
+    })
+  }
 
-      found.prototype = this.prototype
-      return found
-    }
-    // console.log(maxProduct([-4,-3,-2]))
-  </script>
+  function p2() {
+    return new Promise((resolve,reject) => {
+      console.log('yellow');
+      setTimeout(() => {
+        resolve()
+      }, 1000);
+    })
+  }
+
+  function p3() {
+    return new Promise((resolve,reject) => {
+      console.log('green');
+        setTimeout(() => {
+          resolve()
+        }, 3000);
+    })
+  }
+  function run(){
+    Promise.resolve()
+      .then(p1)
+      .then(p2)
+      .then(p3)
+      .finally(run)
+  }
+  run()
+</script>
+
 </html>
